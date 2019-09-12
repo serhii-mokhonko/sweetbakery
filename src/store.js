@@ -3,27 +3,18 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import links from './store/links'
+
 export default new Vuex.Store({
+  modules: {
+    links
+  },
   state: {
-    drawer: false
   },
   mutations: {
-    setDrawer (state, payload) {
-      state.drawer = payload
-    }
   },
   actions: {
-    changeDrawer ({commit, getters}) {
-      if(!getters.drawer){
-        commit("setDrawer", true)
-      }else{
-        commit("setDrawer", false)
-      }
-    }
   },
   getters: {
-    drawer (state) {
-      return  state.drawer
-    }
   }
 })
