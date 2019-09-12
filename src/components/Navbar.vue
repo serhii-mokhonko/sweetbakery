@@ -5,7 +5,7 @@
     light
 >
     <v-app-bar-nav-icon class="d-flex d-sm-none" @click="changeDrawer()"></v-app-bar-nav-icon>
-    <v-toolbar-title>Page title</v-toolbar-title>
+    <v-toolbar-title>Sweet Bakery</v-toolbar-title>
     <div class="flex-grow-1"></div>
     <v-toolbar-items>
         <v-btn 
