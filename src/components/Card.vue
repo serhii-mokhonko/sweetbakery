@@ -1,36 +1,36 @@
 <template>
 <v-card
     class="mx-auto"
+    elevation="10"
     max-width="360"
 >
     <v-img
         class="white--text"
         height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+        src="https://img.taste.com.au/_8bUFGqy/taste/2018/10/black-velvet-cake-142066-1.jpg"
     >
-        <v-card-title class="align-end fill-height">Top 10 Australian beaches</v-card-title>
+        <v-card-title class="align-end fill-height">Cake</v-card-title>
     </v-img>
 
     <v-card-text>
-        <span>Number 10</span><br>
+        <span>Cake</span><br>
         <span class="text--primary">
-        <span>Whitehaven Beach</span><br>
-        <span>Whitsunday Island, Whitsunday Islands</span>
+        <span>Delisious cake</span><br>
+        <span>Some description</span>
         </span>
     </v-card-text>
 
     <v-card-actions>
         <v-btn
-            text
-            color="orange"
+            color="accent"
         >
-            Share
+            Read more
         </v-btn>
         <v-btn
-            text
-            color="orange"
+            color="success"
         >
-            Explore
+        <v-icon left>add_shopping_cart</v-icon>
+            Add to card
         </v-btn>
     </v-card-actions>
 </v-card>

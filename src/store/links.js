@@ -4,7 +4,7 @@ export default {
             {href: '/', name: 'Home', icon: 'home'},
             {href: '/about', name: 'About', icon: 'person'},
             {href: '/contacts', name: 'Contact me', icon: 'contacts'},
-            {href: '/card', name: 'Card', icon: 'shopping_cart'},
+            {href: '/shopping-card', name: 'Card', icon: 'shopping_cart'},
         ]
     },
     mutation: {

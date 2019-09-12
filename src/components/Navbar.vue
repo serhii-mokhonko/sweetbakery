@@ -1,8 +1,9 @@
 <template>
 <v-app-bar
-    color="red lighten-2"
+    color="pink darken-4"
+    max-height="48"
     dense
-    light
+    dark
 >
     <v-app-bar-nav-icon class="d-flex d-sm-none" @click="changeDrawer()"></v-app-bar-nav-icon>
     <v-toolbar-title>Sweet Bakery</v-toolbar-title>

@@ -1,9 +1,9 @@
 <template>
 <div>
 <v-footer
-    light
     padless
-    color="red lighten-1"
+    color="pink darken-4"
+    dark
 >
     <v-col
         cols="12"
