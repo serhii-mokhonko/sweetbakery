@@ -1,24 +1,25 @@
 <template>
-<v-container fluid class="pa-0 ma-0">
+<v-container fluid>
         <v-row class="pa-0">
-            <v-col >
+            <v-col cols="12" sm='12'>
+                <h1 class='text-center'>{{ filteredGoods.title }}</h1>
+            </v-col>
+            <v-col cols="12" sm='12' md='6'>
                 <v-img
-                    src="https://img.taste.com.au/_8bUFGqy/taste/2018/10/black-velvet-cake-142066-1.jpg"
+                    :src=filteredGoods.imgSrc
                     aspect-ratio="1"
                     class="grey lighten-2"
-                    max-height="500"
+                    max-height="400"
                 ></v-img>
             </v-col>
-        </v-row>
-        <v-row>
-            <v-col>
-            <h2>Price: 150 $</h2>
+            <v-col cols="12" sm='12' md='6' >
+                <h1>{{ filteredGoods.price }} грн. / кг(шт.)</h1>
+                <p>{{ filteredGoods.description }}</p>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-                <v-form v-model="valid">
-                    <v-container>
+                <v-form>
                         <v-row>
                             <v-col cols="12" sm='12' md='4'>
                                 <v-select
@@ -76,7 +77,6 @@
                                 <v-btn color="success" block large><v-icon left>add_shopping_cart</v-icon>Order</v-btn>
                             </v-col>
                         </v-row>
-                        </v-container>
                 </v-form>
             </v-col>
         </v-row>
@@ -86,11 +86,17 @@
 <script>
 export default {
     data: () => ({
+        filteredGoods: {},
         weight: ["1 kg", "2 kg", "3 kg", "4 kg", "5 kg", "6 kg", "7 kg"],
         spongeCake: ["Black", "White"],
         cream: ["cream 1", "cream 2", "cream 3",],
         filling: ["cherry", "apple", "banan", "ets",],
         decor: ["flowers", "candies", "toper", "etc"]
-    })
-}
+    }),
+    created () {
+        const goods = this.$store.getters.getGoodsArray;
+        const filteredGoods = goods.find((item) => item.id == this.$route.params.id);
+        this.filteredGoods = filteredGoods;
+    }
+ }
 </script>
