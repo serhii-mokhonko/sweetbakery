@@ -12,5 +12,6 @@ export default new Router({
     {path: '/contacts', component: () => import ('./views/Contacts'), name: 'contacts'},
     {path: '/shopping-card', component: () => import ('./views/ShoppingCard'), name: 'shopping-card'},
     {path: '/goods/:id', component: () => import ('./views/Goods'), name: 'goods'},
+    {path: '/login', component: () => import ('./views/Admin/Login'), name: 'login'},
   ]
 })
