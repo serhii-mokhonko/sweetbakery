@@ -1,17 +1,67 @@
+import * as firebase from "firebase"
+
+// const storageRef = firebase.storage().ref();
+
+class Newgoods {
+    constructor (title, description, taste, unit, price, accessibility, imgSrc=null, id=null) {
+        this.title = title,
+        this.description = description,
+        this.taste = taste,
+        this.unit = unit,
+        this.price = price,
+        this.accessibility = accessibility,
+        this.imgSrc = imgSrc,
+        this.id = id
+    }
+}
+
 export default {
     state: {
-        goodsArray: [
-            {id: 0, title: 'Cake', description: 'Here description', price: 170, imgSrc: 'https://images.pexels.com/photos/1414234/pexels-photo-1414234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'},
-            {id: 1, title: 'Cake 2', description: 'Here description', price: 150, imgSrc: 'https://images.pexels.com/photos/685527/pexels-photo-685527.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'},
-            {id: 2, title: 'Cake 3', description: 'Here description', price: 250, imgSrc: 'https://images.pexels.com/photos/2014693/pexels-photo-2014693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'},
-            {id: 3, title: 'Сake 4', description: 'Here description', price: 215, imgSrc: 'https://images.pexels.com/photos/635409/pexels-photo-635409.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'},
-            {id: 4, title: 'Cake 5', description: 'Here description', price: 300, imgSrc: 'https://images.pexels.com/photos/552535/pexels-photo-552535.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'},
-        ]
+        goodsArray: []
     },
     mutations: {
-
+        updateGoodsArray (state, payload) {
+            state.goodsArray.push(payload)
+        }
     },
     actions: {
+        //add new goods to the firebase database
+        async addNewGoods ({ commit }, payload) {
+            commit('setLoading', true)
+            const newGds = new Newgoods (
+                payload.title,
+                payload.description,
+                payload.taste,
+                payload.unit,
+                payload.price,
+                payload.accessibility
+            )
+            
+            //creating empty goods and getting id
+            const goodsKey = await firebase.database().ref('goods').push().key
+           
+            //creating filename
+            const getFileExtention = payload.img['name'].slice(payload.img['name'].lastIndexOf('.'))
+            const fileName = goodsKey + getFileExtention
+            
+            //upload images
+            await firebase.storage().ref('goods').child(fileName).put(payload.img)
+            let imgSrc = null
+            await firebase.storage().ref('goods').child(fileName).getDownloadURL()
+                .then(url => {imgSrc = url})
+            
+            //upload goods data to database
+            await firebase.database().ref('goods').child(goodsKey).set({...newGds, imgSrc})  
+            
+            //update data in goodsArray without fetch data from database
+            commit('updateGoodsArray', {
+                ...newGds,
+                id: goodsKey,
+                imgSrc
+
+            })
+            commit('setLoading', false)
+        }
 
     },
     getters: {

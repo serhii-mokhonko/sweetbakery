@@ -20,63 +20,63 @@
         <v-row>
             <v-col>
                 <v-form>
-                        <v-row>
-                            <v-col cols="12" sm='12' md='4'>
-                                <v-select
-                                    :items="weight"
-                                    label="Waight"
-                                    outlined
-                                ></v-select>
-                            </v-col>
-                            <v-col cols="12" sm='12' md='4'>
-                                <v-select
-                                    :items="spongeCake"
-                                    label="Sponge Cake"
-                                    outlined
-                                    chips
-                                    multiple
-                                ></v-select>
-                            </v-col>
-                            <v-col cols="12" sm='12' md='4'>
-                                <v-select
-                                    :items="cream"
-                                    label="Cream"
-                                    outlined
-                                    chips
-                                    multiple
-                                ></v-select>
-                            </v-col>
-                            <v-col cols="12" sm="12" md="6">
-                                <v-select
-                                    :items="filling"
-                                    label="Filling"
-                                    outlined
-                                    chips
-                                    multiple
-                                ></v-select>
-                            </v-col>
-                            <v-col cols="12" sm="12" md="6">
-                                <v-select
-                                    :items="decor"
-                                    label="Decor"
-                                    outlined
-                                    chips
-                                    multiple
-                                ></v-select>
-                            </v-col>
-                            <v-col cols="12" md="12">
-                                <v-textarea
-                                    outlined
-                                    name="Comment"
-                                    label="Leave your comment/wishes"
-                                ></v-textarea>
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="12" md="12">
-                                <v-btn color="success" block large><v-icon left>add_shopping_cart</v-icon>Order</v-btn>
-                            </v-col>
-                        </v-row>
+                    <v-row>
+                        <v-col cols="12" sm='12' md='4'>
+                            <v-select
+                                :items="weight"
+                                label="Waight"
+                                outlined
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm='12' md='4'>
+                            <v-select
+                                :items="spongeCake"
+                                label="Sponge Cake"
+                                outlined
+                                chips
+                                multiple
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm='12' md='4'>
+                            <v-select
+                                :items="cream"
+                                label="Cream"
+                                outlined
+                                chips
+                                multiple
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="12" md="6">
+                            <v-select
+                                :items="filling"
+                                label="Filling"
+                                outlined
+                                chips
+                                multiple
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="12" md="6">
+                            <v-select
+                                :items="decor"
+                                label="Decor"
+                                outlined
+                                chips
+                                multiple
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" md="12">
+                            <v-textarea
+                                outlined
+                                name="Comment"
+                                label="Leave your comment/wishes"
+                            ></v-textarea>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="12">
+                            <v-btn color="success" block large><v-icon left>add_shopping_cart</v-icon>Order</v-btn>
+                        </v-col>
+                    </v-row>
                 </v-form>
             </v-col>
         </v-row>

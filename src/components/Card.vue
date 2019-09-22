@@ -24,25 +24,12 @@
             <v-icon left>add_shopping_cart</v-icon>
             Замовити
         </router-link>
-        <!-- <v-btn
-            :href.prevent="/goods/+id"
-            color="accent"
-        >
-            <v-icon left>add_shopping_cart</v-icon>
-            Придбати
-        </v-btn> -->
     </v-card-actions>
 </v-card>
 </template>
 
 <script>
 export default {
-    props: {
-        id: Number,
-        title: String,
-        description: String,
-        price: Number,
-        imgSrc: String
-    }
+    props: ['id', 'title', 'description', 'price', 'imgSrc']
 }
 </script>

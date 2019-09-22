@@ -13,5 +13,6 @@ export default new Router({
     {path: '/shopping-card', component: () => import ('./views/ShoppingCard'), name: 'shopping-card'},
     {path: '/goods/:id', component: () => import ('./views/Goods'), name: 'goods'},
     {path: '/login', component: () => import ('./views/Admin/Login'), name: 'login'},
+    {path: '/admin/add-new-goods', component: () => import ('./views/Admin/AddNewGoods'), name: 'newGoods'},
   ]
 })
