@@ -1,13 +1,13 @@
 <template>
-<v-app>
-  <app-nav-bar></app-nav-bar>
-  
-  <router-view/>
-  
-  <app-drawer></app-drawer>
-  <app-footer></app-footer>
-  
-</v-app>
+  <v-app>
+    <app-nav-bar></app-nav-bar>
+    
+    <router-view/>
+    
+    <app-drawer></app-drawer>
+    <app-footer></app-footer>
+    
+  </v-app>
 </template>
 
 <script>
@@ -24,3 +24,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>

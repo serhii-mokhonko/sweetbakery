@@ -22,9 +22,24 @@ export default {
     mutations: {
         updateGoodsArray (state, payload) {
             state.goodsArray.push(payload)
+        },
+        loadedGds (state, payload) {
+            state.goodsArray = payload
         }
     },
     actions: {
+        //fetch data from database
+        async getGoods ({commit}) {
+            const gdsArr = [];
+            const data = await firebase.database().ref('goods').once('value')
+            const snapshot = data.val()
+            Object.keys(snapshot).forEach((el) => {
+                gdsArr.push(
+                    new Newgoods(snapshot[el].title, snapshot[el].description, snapshot[el].taste, snapshot[el].unit, snapshot[el].price, snapshot[el].accessibility, snapshot[el].imgSrc, el)
+                )
+                commit('loadedGds', gdsArr)
+            })
+        },
         //add new goods to the firebase database
         async addNewGoods ({ commit }, payload) {
             commit('setLoading', true)

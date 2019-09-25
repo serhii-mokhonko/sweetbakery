@@ -1,11 +1,15 @@
 <template>
-    <v-container fluid class="pa-0">
-        <v-row>
-            <v-col v-for="goods in goodsArray" :key=goods.id>
-                <app-card :id="goods.id" :title="goods.title" :description='goods.description' :price='goods.price' :imgSrc='goods.imgSrc' />
-            </v-col>
-        </v-row>
-    </v-container>
+    <div class="container">
+        <div class="card-box" v-for="goods in goodsArray" :key=goods.id>
+            <app-card 
+                :id="goods.id" 
+                :title="goods.title" 
+                :description='goods.description' 
+                :price='goods.price' 
+                :imgSrc='goods.imgSrc' 
+                :unit='goods.unit'/>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -18,10 +22,28 @@ export default {
     },
     components: {
         appCard: Card
+    },
+    created () {
+        this.$store.dispatch('getGoods');
     }
 }
 </script>
 
-<style>
+<style scoped>
+body{
+    margin: 0;
+}
+.container {
+    max-width: 100%;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-box {
+    background: #ccc;
+    margin: 10px;
+}
 
 </style>
