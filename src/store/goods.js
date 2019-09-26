@@ -40,6 +40,10 @@ export default {
                 commit('loadedGds', gdsArr)
             })
         },
+        async getGoodsById (context, payload) {
+            const dbData = await firebase.database().ref('goods/' + payload).once('value')
+            return dbData.val()
+        },
         //add new goods to the firebase database
         async addNewGoods ({ commit }, payload) {
             commit('setLoading', true)

@@ -4,10 +4,10 @@ export default {
     },
     mutation: {},
     actions: {
-        loginUser ({mutation}, payload) {
-            console.log(payload.login, payload.password)
-            /*...*/
-        }
+        // loginUser ({mutation}, payload) {
+        //     console.log(payload.login, payload.password)
+        //     /*...*/
+        // }
     },
     getters: {}
 }

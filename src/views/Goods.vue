@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="left-box">
+        <div class="sub-box">
             <div class="box">
                 <img :src=filteredGoods.imgSrc :alt="filteredGoods.title">
             </div>
@@ -62,27 +62,31 @@ export default {
         decor: ["flowers", "candies", "toper", "etc"]
     }),
     created () {
-        const goods = this.$store.getters.getGoodsArray;
-        const filteredGoods = goods.find((item) => item.id == this.$route.params.id);
-        this.filteredGoods = filteredGoods;
+        this.$store.dispatch('getGoodsById', this.$route.params.id)
+            .then((data) => this.filteredGoods = data)
     }
  }
 </script>
 
 <style scoped>
 .container {
+    max-width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
 .sub-box{
+    min-width: 430px;
     flex-grow: 1;
     flex-basis: 50%;
     padding: 5px;
 }
 
-img {
+.box img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
     border-radius: 10px;
 }
 
