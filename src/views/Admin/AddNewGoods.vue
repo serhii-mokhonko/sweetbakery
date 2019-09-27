@@ -51,7 +51,26 @@
                     outlined
                     ></v-select>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" sm="12" md="4">
+                <v-combobox
+                    label="Кілограми / штуки"
+                    v-model="goods.count"
+                    chips
+                    clearable
+                    multiple
+                    outlined
+                >
+                    <template v-slot:selection="{ item }">
+                        <v-chip
+                            @click:close="removeCount(item)"
+                            close
+                        >
+                            <strong>{{ item }}</strong>
+                        </v-chip>
+                    </template>
+                </v-combobox>
+            </v-col>
+            <v-col cols="12" sm="12" md="4">
                 <v-combobox
                     v-model="goods.taste"
                     chips
@@ -62,7 +81,83 @@
                 >
                     <template v-slot:selection="{ item }">
                         <v-chip
-                            @click:close="remove(item)"
+                            @click:close="removeTaste(item)"
+                            close
+                        >
+                            <strong>{{ item }}</strong>
+                        </v-chip>
+                    </template>
+                </v-combobox>
+            </v-col>
+            <v-col cols="12" sm="12" md="4">
+                <v-combobox
+                    label="Кекс"
+                    v-model="goods.keks"
+                    chips
+                    clearable
+                    multiple
+                    outlined
+                >
+                    <template v-slot:selection="{ item }">
+                        <v-chip
+                            @click:close="removeKeks(item)"
+                            close
+                        >
+                            <strong>{{ item }}</strong>
+                        </v-chip>
+                    </template>
+                </v-combobox>
+            </v-col>
+            <v-col cols="12" sm="12" md="4">
+                <v-combobox
+                    label="Начинка"
+                    v-model="goods.fill"
+                    chips
+                    clearable
+                    multiple
+                    outlined
+                >
+                    <template v-slot:selection="{ item }">
+                        <v-chip
+                            @click:close="removeFill(item)"
+                            close
+                        >
+                            <strong>{{ item }}</strong>
+                        </v-chip>
+                    </template>
+                </v-combobox>
+            </v-col>
+            <v-col cols="12" sm="12" md="4">
+                <v-combobox
+                    label="Крем"
+                    v-model="goods.cream"
+                    chips
+                    clearable
+                    multiple
+                    outlined
+                >
+                    <template v-slot:selection="{ item }">
+                        <v-chip
+                            @click:close="removeCream(item)"
+                            close
+                        >
+                            <strong>{{ item }}</strong>
+                        </v-chip>
+                    </template>
+                </v-combobox>
+            </v-col>
+            <v-col cols="12" sm="12" md="4">
+                <v-combobox
+                    label="Декор"
+                    v-model="goods.decor"
+                    chips
+                    clearable
+                    multiple
+                    outlined
+                >
+                    <template v-slot:selection="{ item }">
+                        <v-chip
+                            @click:close="removeDecor(item)"
                             close
                         >
                             <strong>{{ item }}</strong>
@@ -99,7 +194,12 @@ export default {
             goods: {
                 title: '',
                 description: ``,
+                count: [],
                 taste: [],
+                keks: [],
+                fill: [],
+                cream: [],
+                decor: [],
                 img: [],
                 unit: '',
                 price: 0,
@@ -115,21 +215,45 @@ export default {
     },
     methods: {
         addNewGoods () {
-            // console.log(this.goods.img['name'])
             this.$store.dispatch('addNewGoods', this.goods)
             .then(() => this.goods = {
                 title: '',
                 description: ``,
+                count: [],
                 taste: [],
+                keks: [],
+                fill: [],
+                cream: [],
+                decor: [],
                 img: [],
                 unit: '',
                 price: 0,
                 accessibility: true
             })
         },
-        remove (item) {
+        removeCount (item) {
+            this.goods['count'].splice(this.goods['count'].indexOf(item), 1)
+            this.goods['count'] = [...this.goods['count']]
+        },
+        removeTaste (item) {
             this.goods['taste'].splice(this.goods['taste'].indexOf(item), 1)
             this.goods['taste'] = [...this.goods['taste']]
+        },
+        removeKeks (item) {
+            this.goods['keks'].splice(this.goods['keks'].indexOf(item), 1)
+            this.goods['keks'] = [...this.goods['keks']]
+        },
+        removeFill (item) {
+            this.goods['fill'].splice(this.goods['fill'].indexOf(item), 1)
+            this.goods['fill'] = [...this.goods['fill']]
+        },
+        removeCream(item) {
+            this.goods['cream'].splice(this.goods['cream'].indexOf(item), 1)
+            this.goods['cream'] = [...this.goods['cream']]
+        },
+        removeDecor(item) {
+            this.goods['decor'].splice(this.goods['decor'].indexOf(item), 1)
+            this.goods['decor'] = [...this.goods['decor']]
         },
     }
 }

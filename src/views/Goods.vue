@@ -2,39 +2,70 @@
     <div class="container">
         <div class="sub-box">
             <div class="box">
-                <img :src=filteredGoods.imgSrc :alt="filteredGoods.title">
+                <img :src=goodsById.imgSrc :alt="goodsById.title">
             </div>
         </div>
         <div class="sub-box">
             <div class='box'>
-                <h1 class='display-3'>{{ filteredGoods.title }}</h1>
-            </div>
-            <div class="sub-box">
-                <h1 class='price'>{{ filteredGoods.price }} грн. / {{filteredGoods.unit }}</h1>
+                <h1 class='display-3'>{{ goodsById.title }}</h1>
             </div>
             <div class="box">
-                <p>{{ filteredGoods.description }}</p>
+                <h1 class='price'>{{ goodsById.price }} грн. / {{ goodsById.unit }}</h1>
+            </div>
+            <div class="box">
+                <p>{{ goodsById.description }}</p>
             </div>
             <div class="box">
                 <v-select
-                    :items="weight"
-                    label="Вага"
+                    :items="goodsById.count"
+                    v-model="selectedCount"
+                    :label="goodsById.unit"
                     outlined
                 ></v-select>
             </div>
-            <div class="box">
+            <div class="box" v-if="tasteFieldVisibility">
                 <v-select
-                    :items="spongeCake"
-                    label="Sponge Cake"
+                    :items="goodsById.taste"
+                    v-model="selectedTaste"
+                    label="Смак"
+                    outlined
+                ></v-select>
+            </div>
+            <div class="box" v-if="keksFieldVisibility">
+                <v-select
+                    :items="goodsById.keks"
+                    v-model="selectedKeks"
+                    label="Кекс"
                     outlined
                     chips
                     multiple
                 ></v-select>
             </div>
-            <div class="box">
+            <div class="box" v-if="fillFieldVisibility">
                 <v-select
-                    :items="decor"
-                    label="Decor"
+                    :items="goodsById.fill"
+                    v-model="selectedFill"
+                    label="Начинка"
+                    outlined
+                    chips
+                    multiple
+                ></v-select>
+            </div>
+            <div class="box" v-if="creamFieldVisibility">
+                <v-select
+                    :items="goodsById.cream"
+                    v-model="selectedCream"
+                    label="Крем"
+                    outlined
+                    chips
+                    multiple
+                ></v-select>
+            </div>
+            <div class="box" v-if="decorFieldVisibility">
+                <v-select
+                    :items="goodsById.decor"
+                    v-model="selectedDecor"
+                    label="Декор"
                     outlined
                     chips
                     multiple
@@ -44,8 +75,11 @@
                 <v-textarea
                     outlined
                     name="Comment"
-                    label="Leave your comment/wishes"
+                    label="Коментар"
                 ></v-textarea>
+            </div>
+            <div class="box">
+                <h1>Сумма: {{ price }} грн.</h1>
             </div>
         </div>
     </div>
@@ -54,16 +88,37 @@
 <script>
 export default {
     data: () => ({
-        filteredGoods: {},
-        weight: ["1 kg", "2 kg", "3 kg", "4 kg", "5 kg", "6 kg", "7 kg"],
-        spongeCake: ["Black", "White"],
-        cream: ["cream 1", "cream 2", "cream 3",],
-        filling: ["cherry", "apple", "banan", "ets",],
-        decor: ["flowers", "candies", "toper", "etc"]
+        selectedCount: 0,
+        selectedTaste: null,
+        selectedKeks: null,
+        selectedFill: null,
+        selectedCream: null,
+        selectedDecor: null,
+        goodsById: {},
     }),
+    computed: {
+        tasteFieldVisibility () {
+            return this.goodsById['taste']
+        },
+        keksFieldVisibility () {
+            return this.goodsById['keks']
+        },
+        fillFieldVisibility () {
+            return this.goodsById['fill']
+        },
+        creamFieldVisibility () {
+            return this.goodsById['cream']
+        },
+        decorFieldVisibility () {
+            return this.goodsById['decor']
+        },
+        price () {
+            return this.selectedCount * this.goodsById.price
+        }
+    },
     created () {
         this.$store.dispatch('getGoodsById', this.$route.params.id)
-            .then((data) => this.filteredGoods = data)
+            .then((data) => this.goodsById = data)
     }
  }
 </script>

@@ -3,10 +3,15 @@ import * as firebase from "firebase"
 // const storageRef = firebase.storage().ref();
 
 class Newgoods {
-    constructor (title, description, taste, unit, price, accessibility, imgSrc=null, id=null) {
+    constructor (title, description, count, taste, keks, fill, cream, decor, unit, price, accessibility, imgSrc=null, id=null) {
         this.title = title,
         this.description = description,
+        this.count = count,
         this.taste = taste,
+        this.keks = keks,
+        this.fill = fill,
+        this.cream = cream,
+        this.decor = decor,     
         this.unit = unit,
         this.price = price,
         this.accessibility = accessibility,
@@ -35,7 +40,21 @@ export default {
             const snapshot = data.val()
             Object.keys(snapshot).forEach((el) => {
                 gdsArr.push(
-                    new Newgoods(snapshot[el].title, snapshot[el].description, snapshot[el].taste, snapshot[el].unit, snapshot[el].price, snapshot[el].accessibility, snapshot[el].imgSrc, el)
+                    new Newgoods(
+                        snapshot[el].title, 
+                        snapshot[el].description, 
+                        snapshot[el].count, 
+                        snapshot[el].taste, 
+                        snapshot[el].keks, 
+                        snapshot[el].fill, 
+                        snapshot[el].cream, 
+                        snapshot[el].decor, 
+                        snapshot[el].unit, 
+                        snapshot[el].price, 
+                        snapshot[el].accessibility, 
+                        snapshot[el].imgSrc, 
+                        el
+                    )
                 )
                 commit('loadedGds', gdsArr)
             })
@@ -50,7 +69,12 @@ export default {
             const newGds = new Newgoods (
                 payload.title,
                 payload.description,
+                payload.count,
                 payload.taste,
+                payload.keks,
+                payload.fill,
+                payload.cream,
+                payload.decor,
                 payload.unit,
                 payload.price,
                 payload.accessibility
