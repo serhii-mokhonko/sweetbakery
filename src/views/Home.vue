@@ -24,7 +24,7 @@ export default {
         appCard: Card
     },
     created () {
-        this.$store.dispatch('getGoods');
+        this.$store.dispatch('getGoods')
     }
 }
 </script>

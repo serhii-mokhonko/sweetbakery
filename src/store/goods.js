@@ -30,6 +30,10 @@ export default {
         },
         loadedGds (state, payload) {
             state.goodsArray = payload
+        },
+        delGoods (state, payload) {
+            const index = state.goodsArray.findIndex((el) => el.id === payload)
+            state.goodsArray.splice(index, 1)
         }
     },
     actions: {
@@ -104,6 +108,22 @@ export default {
 
             })
             commit('setLoading', false)
+        },
+        async deleteGoods ({commit}, id) {
+            //delete goods by id from database
+            await firebase.database().ref('goods/'+id).remove()
+                .then(() => commit('delGoods', id))
+                .catch(() => console.log('Can\'t delete goods by id: ' + id))
+            //getting file list from storage
+            const files = await firebase.storage().ref('goods').listAll()
+            //find necessary file
+            const file = files.items.find((el) => {
+                const fileName = el['name'].split('.')
+                return fileName[0] === id
+            })
+            //delete file from storage
+            await firebase.storage().ref(file.fullPath).delete()
+                .catch(() => console.log('Can\'t delete file' + file.fullPath))
         }
 
     },

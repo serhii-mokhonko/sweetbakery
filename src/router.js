@@ -14,5 +14,6 @@ export default new Router({
     {path: '/goods/:id', component: () => import ('./views/Goods'), name: 'goods'},
     {path: '/login', component: () => import ('./views/Admin/Login'), name: 'login'},
     {path: '/admin/add-new-goods', component: () => import ('./views/Admin/AddNewGoods'), name: 'newGoods'},
+    {path: '/admin/goods', component: () => import ('./views/Admin/EditGoods'), name: 'editGoods'},
   ]
 })
