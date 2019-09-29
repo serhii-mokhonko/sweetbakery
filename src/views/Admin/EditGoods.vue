@@ -24,7 +24,7 @@
             </v-list-item>
 
             <v-card-actions>
-            <v-btn color="primary" @click="edit(goods.id)"><v-icon left>edit</v-icon>Редагувати</v-btn>
+            <v-btn color="primary" :to="{name: 'editGoodsById', params: {id: goods.id}}"><v-icon left>edit</v-icon>Редагувати</v-btn>
             <v-btn color="error" @click="del(goods.id)"><v-icon left>delete</v-icon>Видалити</v-btn>
             </v-card-actions>
         </v-card>
@@ -41,10 +41,6 @@ export default {
         }
     },
     methods: {
-        edit (id) {
-            console.log('Edit', id)
-            /**/
-        },
         del (id) {
             this.$store.dispatch('deleteGoods', id)
         }

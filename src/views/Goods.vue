@@ -126,13 +126,14 @@ export default {
 <style scoped>
 .container {
     max-width: 100%;
+    min-width: 350px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
 .sub-box{
-    min-width: 430px;
+    min-width: 350px;
     flex-grow: 1;
     flex-basis: 50%;
     padding: 5px;

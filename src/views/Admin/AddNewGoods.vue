@@ -18,9 +18,9 @@
         <v-row>
             <v-col>
                 <v-file-input
-                    label="File input"
-                    placeholder="Select your files"
+                    label="Завантажити картинку"
                     v-model="goods.img"
+                    prepend-icon="mdi-camera"
                     outlined
                 ></v-file-input>
             </v-col>
