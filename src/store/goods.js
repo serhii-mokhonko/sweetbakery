@@ -3,7 +3,7 @@ import * as firebase from "firebase"
 // const storageRef = firebase.storage().ref();
 
 class Newgoods {
-    constructor (title, description, count, taste, keks, fill, cream, decor, unit, price, accessibility, imgSrc=null, id=null) {
+    constructor (title, description, count=null, taste=null, keks=null, fill=null, cream=null, decor=null, unit, price, accessibility, imgSrc=null, id=null) {
         this.title = title,
         this.description = description,
         this.count = count,
@@ -66,6 +66,39 @@ export default {
         async getGoodsById (context, payload) {
             const dbData = await firebase.database().ref('goods/' + payload).once('value')
             return dbData.val()
+        },
+        async updateGoods ({commit}, pl) {
+            commit('setLoading', true)
+            const gds = new Newgoods (
+                pl.title,
+                pl.description,
+                pl.count,
+                pl.taste,
+                pl.keks,
+                pl.fill,
+                pl.cream,
+                pl.decor,
+                pl.unit,
+                pl.price,
+                pl.accessibility,
+                pl.imgSrc
+            )
+
+            let imgSrc = gds.imgSrc
+            if(pl.img){
+                const getFileExtention = pl.img['name'].slice(pl.img['name'].lastIndexOf('.'))
+                const fileName = pl.id + getFileExtention
+    
+                await firebase.storage().ref('goods').child(fileName).put(pl.img)
+                await firebase.storage().ref('goods').child(fileName).getDownloadURL()
+                    .then(url => {imgSrc = url})
+            }
+
+            await firebase.database().ref('goods').child(pl.id).update({...gds, imgSrc})
+
+            commit('setLoading', false)
+
+ 
         },
         //add new goods to the firebase database
         async addNewGoods ({ commit }, payload) {

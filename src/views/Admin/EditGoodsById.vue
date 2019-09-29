@@ -154,6 +154,7 @@
             <v-file-input
                 label="Завантажити нову картинку"
                 v-model="goodsById.img"
+                @change="onFileChange()"
                 prepend-icon="mdi-camera"
                 show-size
                 solo
@@ -170,11 +171,13 @@
             <v-btn 
                 color="primary"
                 large
+                @click="updateGoods()"
             ><v-icon left>edit</v-icon>Зберегти</v-btn>
             <v-btn
                 class="ml-3"
                 color="error"
                 large
+                @click="deleteGoods"
             ><v-icon left>delete</v-icon>Видалити</v-btn>
         </div>
     </div>
@@ -187,6 +190,22 @@ export default {
         unit: ['кг', 'шт.']
     }),
     methods: {
+        updateGoods () {
+            this.$store.dispatch('updateGoods', {...this.goodsById, id: this.$route.params.id})
+            // console.log({...this.goodsById, id: this.$route.params.id})
+        },
+        onFileChange (event) {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                this.goodsById.imgSrc = reader.result
+            }
+            const file = this.goodsById.img
+            reader.readAsDataURL(file)
+        },
+        deleteGoods () {
+            this.$store.dispatch('deleteGoods', this.$route.params.id)
+            this.$router.push({name: 'editGoods'})
+        },
         removeCount (item) {
             this.goodsById['count'].splice(this.goodsById['count'].indexOf(item), 1)
             this.goodsById['count'] = [...this.goodsById['count']]
