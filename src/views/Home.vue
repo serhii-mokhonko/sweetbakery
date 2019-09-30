@@ -36,7 +36,7 @@ body{
 }
 .container {
     max-width: 100%;
-    margin: 0;
+    margin: 40px 0 0 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

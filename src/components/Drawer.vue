@@ -41,3 +41,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.v-navigation-drawer {
+  margin-top: 40px; 
+}
+</style>
