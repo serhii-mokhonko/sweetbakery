@@ -43,7 +43,6 @@ body{
 }
 
 .card-box {
-    background: #ccc;
     margin: 10px;
 }
 

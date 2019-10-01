@@ -2,21 +2,20 @@
 <div>
 <v-footer
     padless
-    color="pink darken-4"
-    dark
+    color="#f1c40f"
 >
     <v-col
         cols="12"
         class="text-center"
     >
         <v-btn icon link class="ml-3" href="https://www.facebook.com/nina.mokhonko" target="_blank">
-            <v-icon size="24px">mdi-facebook</v-icon>
+            <v-icon size="24px" color='#2980b9'>mdi-facebook</v-icon>
         </v-btn>
         <v-btn icon link class="ml-3" href="https://www.instagram.com/ninamokhonkocake/" target="_blank">
-            <v-icon size="24px">mdi-instagram</v-icon>
+            <v-icon size="24px" color='#c0392b'>mdi-instagram</v-icon>
         </v-btn>
         <v-btn icon class="ml-3" @click="dialog = true">
-            <v-icon size="24px">mdi-phone</v-icon>
+            <v-icon size="24px" color='#34495e'>mdi-phone</v-icon>
         </v-btn>
     </v-col>
 </v-footer>

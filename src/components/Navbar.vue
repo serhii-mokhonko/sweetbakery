@@ -1,16 +1,17 @@
 <template>
   <div class="nav">
     <div class="drawer">
-      <v-btn class="d-flex" @click="changeDrawer()" icon dark>
+      <v-btn class="d-flex drawer-btn" @click="changeDrawer()" icon>
         <v-icon>view_headline</v-icon>
       </v-btn>
     </div>
-    <div class="logo">
-      <router-link tag="strong" to="/">{{ logo }}</router-link>
-    </div>
+    <router-link class="logo" tag="div" to="/"> 
+      <v-img src="../assets/cake.png" :max-width="46"></v-img>
+      <strong>{{ logo }}</strong>
+    </router-link>
     <div class="link-container">
       <div class="link" v-for="(link, id) in links" :key="id">
-        <v-btn :to="link.href" height="100%" text dark>
+        <v-btn :to="link.href" height="100%" text>
           <v-icon left>{{ link.icon }}</v-icon>
           {{ link.name }}
         </v-btn>
@@ -44,6 +45,11 @@ export default {
   .nav {
     justify-content: center;
   }
+  .drawer-btn {
+    position: absolute;
+    top: 5px;
+    left: 0px;
+  }
   .link-container {
     display: none;
   }
@@ -56,18 +62,13 @@ export default {
   .drawer {
     display: none;
   }
-  .logo {
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
   .link-container {
     display: flex;
   }
 }
 
 .nav {
-  background: #880e4f;
-  color: white;
+  background: #f1c40f;
   height: 48px;
   width: 100%;
   position: fixed;
@@ -79,11 +80,17 @@ export default {
   margin: auto 5px;
 }
 .logo {
-  margin: auto 15px;
+  display: flex;
+  align-items: center; 
+  margin: auto 0;
   font-size: 1.5em;
-}
-.logo strong {
   cursor: pointer;
+}
+.logo-box {
+  height: 100%;
+}
+.logo-box img {
+  height: 48px;
 }
 .link-container {
   justify-content: flex-end;

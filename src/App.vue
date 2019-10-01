@@ -25,9 +25,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 body {
   margin: 0;
   padding: 0;
+}
+.container {
+  background: #ecf0f1;
 }
 </style>
