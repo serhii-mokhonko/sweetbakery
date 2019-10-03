@@ -12,14 +12,14 @@
     </v-img>
     <v-card-text>
         <span class='text-center'>
-            <h1 class="green--text text--lighten-1">{{ price }} грн./{{ unit }} </h1>
+            <h1 class="#34495e">{{ price }} грн./{{ unit }} </h1>
         </span>
     </v-card-text>
 
     <v-card-actions>
         <v-btn 
             class="ma-2" 
-            color="pink darken-4"
+            color="#3498db"
             :to="/goods/+id"
             dark
         >
