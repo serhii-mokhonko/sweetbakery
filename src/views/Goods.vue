@@ -78,8 +78,11 @@
                     label="Коментар"
                 ></v-textarea>
             </div>
+            <div class="box" style="margin-bottom: 15px;">
+                <h1>Сума: {{ price }} грн.</h1>
+            </div>
             <div class="box">
-                <h1>Сумма: {{ price }} грн.</h1>
+                <v-btn color='primary' large>Додати у кошик</v-btn>
             </div>
         </div>
     </div>
@@ -94,7 +97,7 @@ export default {
         selectedFill: null,
         selectedCream: null,
         selectedDecor: null,
-        goodsById: {},
+        goodsById: {}
     }),
     computed: {
         tasteFieldVisibility () {
@@ -124,9 +127,16 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 860px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
 .container {
     max-width: 100%;
     min-width: 350px;
+    margin: 40px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -148,8 +158,7 @@ export default {
 
 .price {
     padding: 10px;
-    border: 2px solid red;
-    background: #ccc;
     border-radius: 5px;
+    color: #3498db;
 }
 </style>
