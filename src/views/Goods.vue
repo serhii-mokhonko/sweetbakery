@@ -72,28 +72,6 @@
                 ></v-select>
             </div>
             <div class="box">
-                <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                >
-                    <template v-slot:activator="{ on }">
-                    <v-text-field
-                        color = '#3498db'
-                        v-model="selectedDate"
-                        label="Оберіть дату:"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="selectedDate" @input="menu2 = false"></v-date-picker>
-                </v-menu>
-            </div>
-            <div class="box">
                 <v-textarea
                     outlined
                     name="Comment"
@@ -119,8 +97,7 @@ export default {
         selectedFill: null,
         selectedCream: null,
         selectedDecor: null,
-        selectedDate: new Date().toISOString().substr(0, 10),
-        goodsById: {},
+        goodsById: {}
     }),
     computed: {
         tasteFieldVisibility () {
