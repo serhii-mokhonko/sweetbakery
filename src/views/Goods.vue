@@ -18,7 +18,7 @@
             <div class="box">
                 <v-select
                     :items="goodsById.count"
-                    v-model="selectedCount"
+                    v-model="count"
                     :label="goodsById.unit"
                     outlined
                 ></v-select>
@@ -26,7 +26,7 @@
             <div class="box" v-if="tasteFieldVisibility">
                 <v-select
                     :items="goodsById.taste"
-                    v-model="selectedTaste"
+                    v-model="taste"
                     label="Смак"
                     outlined
                 ></v-select>
@@ -34,7 +34,7 @@
             <div class="box" v-if="keksFieldVisibility">
                 <v-select
                     :items="goodsById.keks"
-                    v-model="selectedKeks"
+                    v-model="keks"
                     label="Кекс"
                     outlined
                     chips
@@ -44,7 +44,7 @@
             <div class="box" v-if="fillFieldVisibility">
                 <v-select
                     :items="goodsById.fill"
-                    v-model="selectedFill"
+                    v-model="fill"
                     label="Начинка"
                     outlined
                     chips
@@ -54,7 +54,7 @@
             <div class="box" v-if="creamFieldVisibility">
                 <v-select
                     :items="goodsById.cream"
-                    v-model="selectedCream"
+                    v-model="cream"
                     label="Крем"
                     outlined
                     chips
@@ -64,7 +64,7 @@
             <div class="box" v-if="decorFieldVisibility">
                 <v-select
                     :items="goodsById.decor"
-                    v-model="selectedDecor"
+                    v-model="decor"
                     label="Декор"
                     outlined
                     chips
@@ -73,16 +73,17 @@
             </div>
             <div class="box">
                 <v-textarea
-                    outlined
+                    v-model="comment"
                     name="Comment"
                     label="Коментар"
+                    outlined
                 ></v-textarea>
             </div>
             <div class="box" style="margin-bottom: 15px;">
                 <h1>Сума: {{ price }} грн.</h1>
             </div>
             <div class="box">
-                <v-btn color='primary' large>Додати у кошик</v-btn>
+                <v-btn color='primary' large @click="addToCard()">Додати у кошик</v-btn>
             </div>
         </div>
     </div>
@@ -91,13 +92,14 @@
 <script>
 export default {
     data: () => ({
-        selectedCount: 0,
-        selectedTaste: null,
-        selectedKeks: null,
-        selectedFill: null,
-        selectedCream: null,
-        selectedDecor: null,
-        goodsById: {}
+        goodsById: {},
+        count: 0,
+        taste: null,
+        keks: null,
+        fill: null,
+        cream: null,
+        decor: null,
+        comment: null
     }),
     computed: {
         tasteFieldVisibility () {
@@ -116,7 +118,23 @@ export default {
             return this.goodsById['decor']
         },
         price () {
-            return this.selectedCount * this.goodsById.price
+            return this.count * this.goodsById.price
+        }
+    },
+    methods: {
+        addToCard(){
+            this.$store.dispatch('addToCard', {
+                name: this.goodsById.title,
+                unit: this.goodsById.unit,
+                count: this.count,
+                sum: this.price,
+                taste: this.taste,
+                keks: this.keks,
+                fill: this.fill,
+                cream: this.cream,
+                decor: this.decor,
+                comment: this.comment
+            })
         }
     },
     created () {
