@@ -136,7 +136,7 @@ export default {
 .container {
     max-width: 100%;
     min-width: 350px;
-    margin: 40px 0;
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
