@@ -133,7 +133,8 @@ export default {
                 fill: this.fill,
                 cream: this.cream,
                 decor: this.decor,
-                comment: this.comment
+                comment: this.comment,
+                gid: this.$route.params.id
             })
         }
     },

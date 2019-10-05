@@ -1,7 +1,7 @@
 import * as firebase from 'firebase'
 
 class Goods {
-    constructor(name, count, unit, sum, taste=null, keks=null, fill=null, cream=null, decor=null, comment=null, uid=null, done=false){
+    constructor(name, count, unit, sum, taste=null, keks=null, fill=null, cream=null, decor=null, comment=null, gid=null, done=false){
         this.name = name
         this.count = count
         this.unit = unit
@@ -12,7 +12,7 @@ class Goods {
         this.cream = cream
         this.decor = decor
         this.comment = comment
-        this.uid = uid
+        this.gid = gid
         this.done = done
     }
 }
@@ -40,12 +40,17 @@ export default {
                 payload.fill,
                 payload.cream,
                 payload.decor,
-                payload.comment
+                payload.comment,
+                payload.gid
             )
             commit('addToCard', order)
         },
         deleteFromCard ({commit}, payload) {
         }
     },
-    getters: {}
+    getters: {
+        getCard (state) {
+            return state.card
+        }
+    }
 }
