@@ -7,12 +7,14 @@ import user from './store/user'
 import links from './store/links'
 import goods from './store/goods'
 import loader from './store/loader'
+import shoppingcard from './store/shoppingCard'
 
 export default new Vuex.Store({
   modules: {
     user, 
     links, 
     goods, 
-    loader
+    loader,
+    shoppingcard
   }
 })
