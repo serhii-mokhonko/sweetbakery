@@ -9,8 +9,10 @@
                 <v-img src="https://picsum.photos/id/106/2592/1728"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
+
                 <v-list-item-title v-text="item.name"></v-list-item-title>
                 <v-list-item-subtitle three-line v-html="subtitle(item)"></v-list-item-subtitle>
+
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn icon>
