@@ -134,7 +134,7 @@ export default {
                 cream: this.cream,
                 decor: this.decor,
                 comment: this.comment,
-                gid: this.$route.params.id
+                imgSrc: this.goodsById.imgSrc
             })
         }
     },

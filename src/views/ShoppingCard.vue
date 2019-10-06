@@ -4,19 +4,17 @@
       <v-col sm="6" xs="12">
         <v-card class="mr-3" max-width="100%" min-width="350px" v-if="card.length > 0">
           <v-list max-width="100%">
-            <v-list-item v-for="item in card" :key="item.gid">
+            <v-list-item v-for="item in card" :key="item.id">
               <v-list-item-avatar size="60">
-                <v-img src="https://picsum.photos/id/106/2592/1728"></v-img>
+                <v-img :src="item.imgSrc"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-
                 <v-list-item-title v-text="item.name"></v-list-item-title>
                 <v-list-item-subtitle three-line v-html="subtitle(item)"></v-list-item-subtitle>
-
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn icon>
-                  <v-icon color="error">delete_forever</v-icon>
+                  <v-icon color="error" @click="deleteFromCard(item.id)">delete_forever</v-icon>
                 </v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -49,19 +47,22 @@ export default {
     };
   },
   computed: {
-    card () {
+    card() {
       return this.$store.getters.getCard;
     }
   },
   methods: {
-    subtitle (item) {
-      return item.count + " " + item.unit
+    subtitle(item) {
+      return item.count + " " + item.unit;
     },
     clear() {
       this.name = "";
       this.phone = "";
       this.comment = "";
       this.socialpage = "";
+    },
+    deleteFromCard(id) {
+      this.$store.dispatch("deleteFromCard", id);
     }
   }
 };
