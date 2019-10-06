@@ -29,6 +29,9 @@ export default {
         deleteFromCard(state, payload) {
             const index = state.card.findIndex(el => el.id == payload)
             state.card.splice(index, 1)
+        },
+        updateCardFromStorage(state, payload){
+            state.card = payload
         }
     },
     actions: {
@@ -54,9 +57,21 @@ export default {
                 gid
             )
             commit('addToCard', order)
+            //add data to local storage
+            let jsonCard = JSON.stringify(getters.getCard)
+            localStorage.setItem('shoppingCard', jsonCard)
         },
-        deleteFromCard({ commit }, id) {
+        deleteFromCard({ commit, getters }, id) {
             commit('deleteFromCard', id)
+            //update data in local storage
+            let jsonCard = JSON.stringify(getters.getCard)
+            localStorage.setItem('shoppingCard', jsonCard)
+        },
+        updateCardFromStorage ({commit}) {
+            const storageCard = JSON.parse(localStorage.getItem('shoppingCard'))
+            if (Array.isArray(storageCard)) {
+                commit('updateCardFromStorage', storageCard)
+            }
         }
     },
     getters: {

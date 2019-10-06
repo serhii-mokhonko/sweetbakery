@@ -49,10 +49,10 @@ export default {
     };
   },
   computed: {
-    card() {
+    card () {
       return this.$store.getters.getCard;
     },
-    sum() {
+    sum () {
       const card = this.$store.getters.getCard;
       let price = 0;
       card.forEach(element => {
@@ -77,6 +77,9 @@ export default {
     deleteFromCard(id) {
       this.$store.dispatch("deleteFromCard", id);
     }
+  },
+  created () {
+    this.$store.dispatch('updateCardFromStorage')
   }
 };
 </script>
