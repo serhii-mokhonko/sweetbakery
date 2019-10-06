@@ -1,8 +1,20 @@
 <template>
   <v-container fluid>
-    <v-row no-gutters>
+    <v-row no-gutters class="d-flex flex-md-row flex-column-reverse">
       <v-col sm="6" xs="12">
-        <v-card class="mr-3" max-width="100%" min-width="350px" v-if="card.length > 0">
+        <h1>Трохи інформації про Вас</h1>
+        <form>
+          <v-text-field v-model="userName" label="Ваше ім'я *"></v-text-field>
+          <v-text-field v-model="phone" label="Номер телефона *"></v-text-field>
+          <v-text-field v-model="comment" label="Коментар"></v-text-field>
+          <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
+          <h2>Вартість замовлення: {{sum}} грн.</h2>
+          <v-btn color="primary" class="mr-4">Замовити</v-btn>
+          <v-btn color="error" @click="clear">Очистити</v-btn>
+        </form>
+      </v-col>
+      <v-col sm="6" xs="12" v-if="card.length > 0">
+        <v-card class="mx-auto ml-md-3" max-width="100%" min-width="350px">
           <v-list max-width="100%">
             <v-list-item v-for="item in card" :key="item.id">
               <v-list-item-avatar size="60">
@@ -11,6 +23,7 @@
               <v-list-item-content>
                 <v-list-item-title v-text="item.name"></v-list-item-title>
                 <v-list-item-subtitle three-line v-html="subtitle(item)"></v-list-item-subtitle>
+                <v-list-item-subtitle three-line v-html="price(item)"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn icon>
@@ -20,17 +33,6 @@
             </v-list-item>
           </v-list>
         </v-card>
-      </v-col>
-      <v-col sm="6" xs="12">
-        <h1>Трохи інформації про Вас</h1>
-        <form>
-          <v-text-field v-model="userName" label="Ваше ім'я *"></v-text-field>
-          <v-text-field v-model="phone" label="Номер телефона *"></v-text-field>
-          <v-text-field v-model="comment" label="Коментар"></v-text-field>
-          <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
-          <v-btn color="success" class="mr-4">Замовити</v-btn>
-          <v-btn color="error" @click="clear">Очистити</v-btn>
-        </form>
       </v-col>
     </v-row>
   </v-container>
@@ -49,11 +51,22 @@ export default {
   computed: {
     card() {
       return this.$store.getters.getCard;
+    },
+    sum() {
+      const card = this.$store.getters.getCard;
+      let price = 0;
+      card.forEach(element => {
+        price = price + element.sum;
+      });
+      return price;
     }
   },
   methods: {
     subtitle(item) {
       return item.count + " " + item.unit;
+    },
+    price(item) {
+      return "Ціна: <b>" + item.sum + " грн.</b>";
     },
     clear() {
       this.name = "";
