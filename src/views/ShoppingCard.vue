@@ -9,7 +9,7 @@
           <v-text-field v-model="comment" label="Коментар"></v-text-field>
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
           <h2>Вартість замовлення: {{sum}} грн.</h2>
-          <v-btn color="primary" class="mr-4">Замовити</v-btn>
+          <v-btn color="primary" class="mr-4" @click='createOrder'>Замовити</v-btn>
           <v-btn color="error" @click="clear">Очистити</v-btn>
         </form>
       </v-col>
@@ -69,13 +69,23 @@ export default {
       return "Ціна: <b>" + item.sum + " грн.</b>";
     },
     clear() {
-      this.name = "";
+      this.userName = "";
       this.phone = "";
       this.comment = "";
       this.socialpage = "";
     },
     deleteFromCard(id) {
       this.$store.dispatch("deleteFromCard", id);
+    },
+    createOrder () {
+      this.$store.dispatch('order', {
+        name: this.userName,
+        phone: this.phone,
+        comment: this.comment,
+        socialpage: this.socialpage
+      })
+      .then(() => localStorage.clear())
+      .then(() => this.clear())
     }
   },
   created () {

@@ -30,8 +30,11 @@ export default {
             const index = state.card.findIndex(el => el.id == payload)
             state.card.splice(index, 1)
         },
-        updateCardFromStorage(state, payload){
+        updateCardFromStorage(state, payload) {
             state.card = payload
+        },
+        clearCard (state) {
+            state.card = []
         }
     },
     actions: {
@@ -67,11 +70,20 @@ export default {
             let jsonCard = JSON.stringify(getters.getCard)
             localStorage.setItem('shoppingCard', jsonCard)
         },
-        updateCardFromStorage ({commit}) {
+        updateCardFromStorage({ commit }) {
             const storageCard = JSON.parse(localStorage.getItem('shoppingCard'))
             if (Array.isArray(storageCard)) {
                 commit('updateCardFromStorage', storageCard)
             }
+        },
+        async order({ commit, getters }, client) {
+            const uid = await firebase.database().ref('clients').push(client).key
+            const newOrder = await firebase.database().ref('orders').push()
+            await newOrder.set({
+                ...getters.getCard,
+                client: uid
+            })
+            commit('clearCard')
         }
     },
     getters: {
