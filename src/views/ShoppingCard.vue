@@ -9,8 +9,8 @@
           <v-text-field v-model="comment" label="Коментар"></v-text-field>
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
           <h2>Вартість замовлення: {{sum}} грн.</h2>
-          <v-btn color="primary" class="mr-4" @click='createOrder'>Замовити</v-btn>
-          <v-btn color="error" @click="clear">Очистити</v-btn>
+          <v-btn color="primary" class="mr-4 mt-2" @click="createOrder">Замовити</v-btn>
+          <!-- <v-btn color="error" @click="clear">Очистити</v-btn> -->
         </form>
       </v-col>
       <v-col sm="6" xs="12" v-if="card.length > 0">
@@ -35,6 +35,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -49,16 +52,19 @@ export default {
     };
   },
   computed: {
-    card () {
+    card() {
       return this.$store.getters.getCard;
     },
-    sum () {
+    sum() {
       const card = this.$store.getters.getCard;
       let price = 0;
       card.forEach(element => {
         price = price + element.sum;
       });
       return price;
+    },
+    loading() {
+      return this.$store.getters.getLoading;
     }
   },
   methods: {
@@ -77,19 +83,21 @@ export default {
     deleteFromCard(id) {
       this.$store.dispatch("deleteFromCard", id);
     },
-    createOrder () {
-      this.$store.dispatch('order', {
-        name: this.userName,
-        phone: this.phone,
-        comment: this.comment,
-        socialpage: this.socialpage
-      })
-      .then(() => localStorage.clear())
-      .then(() => this.clear())
+    createOrder() {
+      this.$store
+        .dispatch("order", {
+          name: this.userName,
+          phone: this.phone,
+          comment: this.comment,
+          socialpage: this.socialpage
+        })
+        .then(() => localStorage.clear())
+        .then(() => this.clear())
+        .then(() => this.$router.push({name: 'home'}));
     }
   },
-  created () {
-    this.$store.dispatch('updateCardFromStorage')
+  created() {
+    this.$store.dispatch("updateCardFromStorage");
   }
 };
 </script>
