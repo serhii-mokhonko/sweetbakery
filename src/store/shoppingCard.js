@@ -78,11 +78,13 @@ export default {
         },
         async order({ commit, getters }, client) {
             commit('setLoading', true)
-            const uid = await firebase.database().ref('clients').push(client).key
+            const uid = await firebase.database().ref('clients').push({name: client.name, phone: client.phone, socialpage: client.socialpage}).key
             const newOrder = await firebase.database().ref('orders').push()
             await newOrder.set({
                 ...getters.getCard,
-                client: uid
+                client: uid,
+                comment: client.comment,
+                orderDate: client.date,
             })
             commit('clearCard')
             commit('setLoading', false)

@@ -2,11 +2,23 @@
   <v-container fluid>
     <v-row no-gutters class="d-flex flex-md-row flex-column-reverse">
       <v-col sm="6" xs="12">
-        <h1>Трохи інформації про Вас</h1>
         <form>
           <v-text-field v-model="userName" label="Ваше ім'я *"></v-text-field>
           <v-text-field v-model="phone" label="Номер телефона *"></v-text-field>
-          <v-text-field v-model="comment" label="Коментар"></v-text-field>
+          <span class="font-weight-light">Оберіть дату замовлення</span>
+          <v-date-picker
+            v-model="date"
+            first-day-of-week="1"
+            full-width
+            :landscape="$vuetify.breakpoint.smAndUp"
+            class="mt-4"
+          ></v-date-picker>
+          <v-textarea
+            label="Коментар"
+            v-model="comment"
+            auto-grow
+            clearable
+          ></v-textarea>
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
           <h2>Вартість замовлення: {{sum}} грн.</h2>
           <v-btn color="primary" class="mr-4 mt-2" @click="createOrder">Замовити</v-btn>
@@ -47,6 +59,7 @@ export default {
     return {
       userName: "",
       phone: "",
+      date: new Date().toISOString().substr(0, 10),
       comment: "",
       socialpage: ""
     };
@@ -89,11 +102,12 @@ export default {
           name: this.userName,
           phone: this.phone,
           comment: this.comment,
-          socialpage: this.socialpage
+          socialpage: this.socialpage,
+          date: this.date
         })
         .then(() => localStorage.clear())
         .then(() => this.clear())
-        .then(() => this.$router.push({name: 'home'}));
+        .then(() => this.$router.push({ name: "home" }));
     }
   },
   created() {
