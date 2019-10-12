@@ -13,6 +13,8 @@
             full-width
             :landscape="$vuetify.breakpoint.smAndUp"
             :allowed-dates="allowedDate"
+            :min="minDateOrder"
+            :max="maxDateOrder"
           ></v-date-picker>
           <v-textarea label="Коментар" v-model="comment" auto-grow clearable></v-textarea>
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
@@ -76,6 +78,68 @@ export default {
     },
     loading() {
       return this.$store.getters.getLoading;
+    },
+    minDateOrder() {
+      let now = new Date()
+        .toISOString()
+        .slice(0, 10)
+        .split("-");
+      let year = parseInt(now[0]);
+      let month = parseInt(now[1]);
+      let day = parseInt(now[2]);
+      switch (day) {
+        case 27:
+          day = 1;
+          month = month + 1;
+          break;
+        case 28:
+          day = 2;
+          month = month + 1;
+          break;
+        case 29:
+          day = 3;
+          month = month + 1;
+          break;
+        case 30:
+          day = 4;
+          month = month + 1;
+          break;
+        case 31:
+          day = 5;
+          month = month + 1;
+          break;
+        default:
+          day = day + 5;
+      }
+      if (month >= 12) {
+        month = 1;
+        year = year + 1;
+      }
+      if (month < 10) month = "0" + String(month);
+      if (day < 10) day = "0" + String(day);
+      return year + "-" + month + "-" + day;
+    },
+    maxDateOrder() {
+      let now = new Date()
+        .toISOString()
+        .slice(0, 10)
+        .split("-");
+      let year = parseInt(now[0]);
+      let month = parseInt(now[1]);
+      let day = parseInt(now[2]) + 15;
+      if (day >= 28) {
+        day = 1;
+        month = month + 1;
+      }
+      if (month >= 12) {
+        month = 1;
+        year = year + 1;
+      } else {
+        month = month + 1;
+      }
+      if (month < 10) month = "0" + String(month);
+      if (day < 10) day = "0" + String(day);
+      return year + "-" + month + "-" + day;
     }
   },
   methods: {
