@@ -20,7 +20,6 @@
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
           <h2>Вартість замовлення: {{sum}} грн.</h2>
           <v-btn color="primary" class="mr-4 mt-2" @click="createOrder">Замовити</v-btn>
-          <!-- <v-btn color="error" @click="clear">Очистити</v-btn> -->
         </form>
       </v-col>
       <v-col sm="6" xs="12" v-if="card.length > 0">
@@ -80,66 +79,14 @@ export default {
       return this.$store.getters.getLoading;
     },
     minDateOrder() {
-      let now = new Date()
-        .toISOString()
-        .slice(0, 10)
-        .split("-");
-      let year = parseInt(now[0]);
-      let month = parseInt(now[1]);
-      let day = parseInt(now[2]);
-      switch (day) {
-        case 27:
-          day = 1;
-          month = month + 1;
-          break;
-        case 28:
-          day = 2;
-          month = month + 1;
-          break;
-        case 29:
-          day = 3;
-          month = month + 1;
-          break;
-        case 30:
-          day = 4;
-          month = month + 1;
-          break;
-        case 31:
-          day = 5;
-          month = month + 1;
-          break;
-        default:
-          day = day + 5;
-      }
-      if (month >= 12) {
-        month = 1;
-        year = year + 1;
-      }
-      if (month < 10) month = "0" + String(month);
-      if (day < 10) day = "0" + String(day);
-      return year + "-" + month + "-" + day;
+      let date = new Date().toISOString().slice(0, 10).split('-')
+      let start = new Date(date[0], parseInt(date[1])-1, parseInt(date[2])+6)
+      return start.toISOString().slice(0, 10)
     },
     maxDateOrder() {
-      let now = new Date()
-        .toISOString()
-        .slice(0, 10)
-        .split("-");
-      let year = parseInt(now[0]);
-      let month = parseInt(now[1]);
-      let day = parseInt(now[2]) + 15;
-      if (day >= 28) {
-        day = 1;
-        month = month + 1;
-      }
-      if (month >= 12) {
-        month = 1;
-        year = year + 1;
-      } else {
-        month = month + 1;
-      }
-      if (month < 10) month = "0" + String(month);
-      if (day < 10) day = "0" + String(day);
-      return year + "-" + month + "-" + day;
+      let date = new Date().toISOString().slice(0, 10).split('-')
+      let end = new Date(date[0], parseInt(date[1])-1, parseInt(date[2])+50)
+      return end.toISOString().slice(0, 10)
     }
   },
   methods: {
