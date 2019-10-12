@@ -20,7 +20,7 @@ class Goods {
 
 export default {
     state: {
-        card: [],
+        card: []
     },
     mutations: {
         addToCard(state, payload) {
@@ -33,7 +33,7 @@ export default {
         updateCardFromStorage(state, payload) {
             state.card = payload
         },
-        clearCard (state) {
+        clearCard(state) {
             state.card = []
         }
     },
@@ -78,7 +78,7 @@ export default {
         },
         async order({ commit, getters }, client) {
             commit('setLoading', true)
-            const uid = await firebase.database().ref('clients').push({name: client.name, phone: client.phone, socialpage: client.socialpage}).key
+            const uid = await firebase.database().ref('clients').push({ name: client.name, phone: client.phone, socialpage: client.socialpage }).key
             const newOrder = await firebase.database().ref('orders').push()
             await newOrder.set({
                 ...getters.getCard,

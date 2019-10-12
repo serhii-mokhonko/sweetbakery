@@ -7,18 +7,14 @@
           <v-text-field v-model="phone" label="Номер телефона *"></v-text-field>
           <span class="font-weight-light">Оберіть дату замовлення</span>
           <v-date-picker
+            class="mt-4"
             v-model="date"
             first-day-of-week="1"
             full-width
             :landscape="$vuetify.breakpoint.smAndUp"
-            class="mt-4"
+            :allowed-dates="allowedDate"
           ></v-date-picker>
-          <v-textarea
-            label="Коментар"
-            v-model="comment"
-            auto-grow
-            clearable
-          ></v-textarea>
+          <v-textarea label="Коментар" v-model="comment" auto-grow clearable></v-textarea>
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
           <h2>Вартість замовлення: {{sum}} грн.</h2>
           <v-btn color="primary" class="mr-4 mt-2" @click="createOrder">Замовити</v-btn>
@@ -54,6 +50,7 @@
 </template>
 
 <script>
+import * as firebase from "firebase";
 export default {
   data() {
     return {
@@ -61,7 +58,8 @@ export default {
       phone: "",
       date: new Date().toISOString().substr(0, 10),
       comment: "",
-      socialpage: ""
+      socialpage: "",
+      dates: []
     };
   },
   computed: {
@@ -108,7 +106,23 @@ export default {
         .then(() => localStorage.clear())
         .then(() => this.clear())
         .then(() => this.$router.push({ name: "home" }));
+    },
+    allowedDate(val) {
+      if (this.dates.indexOf(val) != -1) return false;
+      else return true;
     }
+  },
+  beforeCreate() {
+    firebase
+      .database()
+      .ref("orders")
+      .once("value")
+      .then(snapshot => {
+        const val = snapshot.val();
+        for (let item in val) {
+          this.dates.push(val[item].orderDate);
+        }
+      });
   },
   created() {
     this.$store.dispatch("updateCardFromStorage");
