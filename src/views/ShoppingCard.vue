@@ -2,9 +2,15 @@
   <v-container fluid>
     <v-row no-gutters class="d-flex flex-md-row flex-column-reverse">
       <v-col sm="6" xs="12">
-        <form>
-          <v-text-field v-model="userName" label="Ваше ім'я *"></v-text-field>
-          <v-text-field v-model="phone" label="Номер телефона *"></v-text-field>
+        <v-form v-model="valid">
+          <v-text-field v-model="userName" label="Ваше ім'я *" :rules="nameRules" required></v-text-field>
+          <v-text-field
+            v-model="phone"
+            label="Номер телефона *"
+            :rules="phoneRules"
+            :counter="13"
+            required
+          ></v-text-field>
           <span class="font-weight-light">Оберіть дату замовлення</span>
           <v-date-picker
             class="mt-4"
@@ -19,8 +25,13 @@
           <v-textarea label="Коментар" v-model="comment" auto-grow clearable></v-textarea>
           <v-text-field v-model="socialpage" label="Посилання на соціальні мережі"></v-text-field>
           <h2>Вартість замовлення: {{sum}} грн.</h2>
-          <v-btn color="primary" class="mr-4 mt-2" @click="createOrder">Замовити</v-btn>
-        </form>
+          <v-btn
+            color="primary"
+            class="mr-4 mt-2"
+            @click="createOrder"
+            :disabled="validate"
+          >Замовити</v-btn>
+        </v-form>
       </v-col>
       <v-col sm="6" xs="12" v-if="card.length > 0">
         <v-card class="mx-auto ml-md-3" max-width="100%" min-width="350px">
@@ -57,10 +68,21 @@ export default {
     return {
       userName: "",
       phone: "",
-      date: new Date().toISOString().substr(0, 10),
+      date: "",
       comment: "",
       socialpage: "",
-      dates: []
+      dates: [],
+      valid: false,
+      nameRules: [
+        v => !!v || "Заповніть, будь-ласка, обов'язкове поле.",
+        v => v.length >= 3 || "Повинно бути не менше 3 символів."
+      ],
+      phoneRules: [
+        v => !!v || "Заповніть, будь-ласка, обов'язкове поле.",
+        v => v.length >= 10 || "Довжина номеру повинна бути не менше 10 символів.",
+        v => v.length <= 13 || "Довжина номеру повинна бути не більше 13 символів.",
+        v => !isNaN(v) || "Введіть номер в форматі 0981112233 або 380981112233"
+      ]
     };
   },
   computed: {
@@ -79,14 +101,35 @@ export default {
       return this.$store.getters.getLoading;
     },
     minDateOrder() {
-      let date = new Date().toISOString().slice(0, 10).split('-')
-      let start = new Date(date[0], parseInt(date[1])-1, parseInt(date[2])+6)
-      return start.toISOString().slice(0, 10)
+      let date = new Date()
+        .toISOString()
+        .slice(0, 10)
+        .split("-");
+      let start = new Date(
+        date[0],
+        parseInt(date[1]) - 1,
+        parseInt(date[2]) + 6
+      );
+      return start.toISOString().slice(0, 10);
     },
     maxDateOrder() {
-      let date = new Date().toISOString().slice(0, 10).split('-')
-      let end = new Date(date[0], parseInt(date[1])-1, parseInt(date[2])+50)
-      return end.toISOString().slice(0, 10)
+      let date = new Date()
+        .toISOString()
+        .slice(0, 10)
+        .split("-");
+      let end = new Date(
+        date[0],
+        parseInt(date[1]) - 1,
+        parseInt(date[2]) + 50
+      );
+      return end.toISOString().slice(0, 10);
+    },
+    validate() {
+      if (this.valid && this.$store.getters.getCard.length > 0 && this.date) {
+        return false;
+      } else {
+        return true;
+      }
     }
   },
   methods: {
