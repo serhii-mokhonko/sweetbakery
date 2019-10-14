@@ -1,13 +1,15 @@
+import * as firebase from 'firebase'
 export default {
     state: {
         user: null
     },
     mutation: {},
     actions: {
-        // loginUser ({mutation}, payload) {
-        //     console.log(payload.login, payload.password)
-        //     /*...*/
-        // }
+        async loginUser({ mutation }, { email, password }) {
+            await firebase.auth().signInWithEmailAndPassword(email, password)
+                // .then((user) => console.log(user.user['uid']))
+                .catch(err => console.log(err))
+        }
     },
     getters: {}
 }
