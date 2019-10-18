@@ -5,7 +5,7 @@
         <v-icon>view_headline</v-icon>
       </v-btn>
     </div>
-    <router-link class="logo" tag="div" to="/"> 
+    <router-link class="logo" tag="div" to="/">
       <v-img src="../assets/cake.png" :max-width="46"></v-img>
       <strong>{{ logo }}</strong>
     </router-link>
@@ -14,6 +14,11 @@
         <v-btn :to="link.href" height="100%" text>
           <v-icon left>{{ link.icon }}</v-icon>
           {{ link.name }}
+        </v-btn>
+      </div>
+      <div class="link" v-if="this.$store.getters.getUser">
+        <v-btn height="100%" text @click="signOut">
+          <v-icon left>arrow_back</v-icon>Вихід
         </v-btn>
       </div>
     </div>
@@ -25,17 +30,43 @@ import { event } from "../main";
 export default {
   data() {
     return {
-      logo: "Sweet Bakery",
-      links: null
+      logo: "Sweet Bakery"
     };
   },
+  computed: {
+    links() {
+      if (this.$store.getters.getUser) {
+        return [
+          { href: "/", name: "Головна", icon: "home" },
+          { href: "/about", name: "Про нас", icon: "person" },
+          { href: "/contacts", name: "Контакти", icon: "contacts" },
+          { href: "/shopping-card", name: "Кошик", icon: "shopping_cart" },
+          {
+            href: "/admin/add-new-goods",
+            name: "Додати товар",
+            icon: "fiber_new"
+          },
+          { href: "/admin/goods", name: "Всі продукти", icon: "list" }
+        ];
+      } else {
+        return [
+          { href: "/", name: "Головна", icon: "home" },
+          { href: "/about", name: "Про нас", icon: "person" },
+          { href: "/contacts", name: "Контакти", icon: "contacts" },
+          { href: "/shopping-card", name: "Кошик", icon: "shopping_cart" },
+          { href: "/Login", name: "Вхід", icon: "vpn_key" }
+        ];
+      }
+    }
+  },
   methods: {
+    signOut() {
+      this.$store.dispatch("signOut");
+      if (this.$route.name != "home") this.$router.push({ name: "home" });
+    },
     changeDrawer() {
       event.$emit("changeDrawer");
     }
-  },
-  created() {
-    this.links = this.$store.getters.getLinks;
   }
 };
 </script>
@@ -81,7 +112,7 @@ export default {
 }
 .logo {
   display: flex;
-  align-items: center; 
+  align-items: center;
   margin: auto 0;
   font-size: 1.5em;
   cursor: pointer;

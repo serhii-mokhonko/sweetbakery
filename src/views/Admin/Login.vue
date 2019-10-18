@@ -49,8 +49,12 @@ export default {
       email: null,
       password: null
     },
-    loading: true
   }),
+  computed: {
+    loading () {
+      return this.$store.getters.getLoading
+    }
+  },
   methods: {
     loginUser() {
       this.$store.dispatch("loginUser", this.user)
