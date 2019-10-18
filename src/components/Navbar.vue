@@ -6,7 +6,7 @@
       </v-btn>
     </div>
     <router-link class="logo" tag="div" to="/">
-      <v-img src="../assets/cake.png" :max-width="46"></v-img>
+      <v-img src="../assets/cake.png" :max-width="36"></v-img>
       <strong>{{ logo }}</strong>
     </router-link>
     <div class="link-container">
@@ -41,11 +41,7 @@ export default {
           { href: "/about", name: "Про нас", icon: "person" },
           { href: "/contacts", name: "Контакти", icon: "contacts" },
           { href: "/shopping-card", name: "Кошик", icon: "shopping_cart" },
-          {
-            href: "/admin/add-new-goods",
-            name: "Додати товар",
-            icon: "fiber_new"
-          },
+          { href: "/admin/add-new-goods", name: "Додати товар", icon: "fiber_new" },
           { href: "/admin/goods", name: "Всі продукти", icon: "list" }
         ];
       } else {
@@ -116,13 +112,14 @@ export default {
   margin: auto 0;
   font-size: 1.5em;
   cursor: pointer;
+  padding: 5px, 5px;
 }
-.logo-box {
+/* .logo-box {
   height: 100%;
-}
-.logo-box img {
+} */
+/* .logo-box img {
   height: 48px;
-}
+} */
 .link-container {
   justify-content: flex-end;
   flex-grow: 7;
@@ -134,6 +131,4 @@ export default {
 .link .v-btn {
   border-radius: 0px;
 }
-</style>>
-
 </style>
